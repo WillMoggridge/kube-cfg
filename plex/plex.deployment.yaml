@@ -33,9 +33,9 @@ spec:
           protocol: UDP
         env:
         - name: PUID
-          value: "1026"
+          value: "1000"
         - name: PGID
-          value: "100"
+          value: "1000"
         - name: TZ
           value: "Europe/London"
         - name: VERSION

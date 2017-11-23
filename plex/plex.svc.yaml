@@ -4,13 +4,13 @@ metadata:
   name: plex
   labels:
     app: plex
-    kubernetes.io/name: "plex"
 spec:
   selector:
     app: plex
+  type: NodePort
   ports:
-  - name: plex
-    port: 32400
-    targetPort: 32400
+    - name: plex
+      port: 32400
+      targetPort: 32400
   externalIPs:
     - 192.168.1.150

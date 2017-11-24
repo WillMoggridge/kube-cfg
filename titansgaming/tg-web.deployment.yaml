@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: titansgaming-web
+  namespace: titansgaming
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: titansgaming-web
+    spec:
+      containers:
+      - image: titansgaming/web
+        imagePullPolicy: Always
+        name: titansgaming-web
+        ports:
+          - containerPort: 80

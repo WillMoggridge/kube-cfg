@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: titansgaming-api
+  namespace: titansgaming
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: titansgaming-api
+    spec:
+      containers:
+      - image: titansgaming/api
+        imagePullPolicy: Always
+        name: titansgaming-api
+        ports:
+          - containerPort: 80
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 80
+          periodSeconds: 3
+          successThreshold: 3
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 10

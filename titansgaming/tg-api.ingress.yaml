@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: titansgaming-api
+  namespace: titansgaming
+  annotations:
+    kubernetes.io/tls-acme: "true"
+    kubernetes.io/ingress.class: "gce"
+spec:
+  tls:
+  - hosts:
+    - api.titansgaming.net
+    secretName: titansgaming-api-tls
+  rules:
+  - host: api.titansgaming.net
+    http:
+      paths:
+      - path: /*
+        backend:
+          serviceName: titansgaming-api
+          servicePort: 80

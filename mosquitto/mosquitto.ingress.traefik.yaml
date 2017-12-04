@@ -1,0 +1,18 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: mosquitto
+  labels:
+    app: mosquitto
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host: mosquitto.will.lan
+      http:
+        paths:
+          - backend:
+              serviceName: mosquitto
+              servicePort: 80

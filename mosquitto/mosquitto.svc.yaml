@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: mosquitto
+  labels:
+    app: mosquitto
+spec:
+  selector:
+    app: mosquitto
+  ports:
+    - name: mosquitto
+      port: 80
+      targetPort: 9001
+    - name: mqtt
+      port: 1883
+      targetPort: 1883

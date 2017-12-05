@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: default
+  name: mosquitto
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mosquitto
+    spec:
+      containers:
+      - name: mosquitto
+        image: toke/mosquitto
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 1883
+          name: mosquitto-web
+        - containerPort: 9001
+          name: mqtt
+        volumeMounts:
+        - name: localtime
+          mountPath: /etc/localtime
+        # - name: mosquitto-config
+        #   mountPath: /mqtt/config
+        # - name: mosquitto-data
+        #   mountPath: /srv/mqtt/data
+        # - name: mosquitto-log
+        #   mountPath: /srv/mqtt/log
+      volumes:
+      - name: localtime
+        hostPath:
+          path: /etc/localtime
+      # - name: mosquitto-config
+      #   nfs:
+      #     server: 192.168.1.128
+      #     path: /volume1/configs/mosquitto
+      # - name: mosquitto
+      #   persistentVolumeClaim:
+      #     claimName: mosquitto
+      # - name: mosquitto-data
+      #   persistentVolumeClaim:
+      #     claimName: mosquitto-data
+      # - name: mosquitto-log
+      #   persistentVolumeClaim:
+      #     claimName: mosquitto-log

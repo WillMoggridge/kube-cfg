@@ -16,3 +16,9 @@ spec:
           - backend:
               serviceName: mosquitto
               servicePort: 80
+    - host: mqtt.will.lan
+      http:
+        paths:
+          - backend:
+              serviceName: mosquitto
+              servicePort: 1883

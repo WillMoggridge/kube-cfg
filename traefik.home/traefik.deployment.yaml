@@ -31,3 +31,11 @@ spec:
         args:
         - --web
         - --kubernetes
+        # - --logLevel=DEBUG
+        volumeMounts:
+        - mountPath: "/config"
+          name: "config"
+      volumes:
+      - name: config
+        configMap:
+          name: traefik-ingress-conf

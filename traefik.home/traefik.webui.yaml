@@ -25,3 +25,9 @@ spec:
       - backend:
           serviceName: traefik-web-ui
           servicePort: 80
+  - host: traefik-ui.will.lan
+    http:
+      paths:
+      - backend:
+          serviceName: traefik-web-ui
+          servicePort: 80

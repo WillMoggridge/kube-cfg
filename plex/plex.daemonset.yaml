@@ -1,0 +1,65 @@
+kind: DaemonSet
+apiVersion: extensions/v1beta1
+metadata:
+  name: plex
+spec:
+  #updateStrategy:
+    #type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: plex
+    spec:
+      hostNetwork: true
+      containers:
+      - name: plex
+        #image: plexinc/pms-docker
+        image: plexinc/pms-docker:plexpass
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 32400
+          name: plex
+        - containerPort: 32400
+          name: plex-udp
+          protocol: UDP
+        - containerPort: 32469
+          name: plex2
+        - containerPort: 32469
+          name: plex2-udp
+          protocol: UDP
+        - containerPort: 5353
+          name: plex3-udp
+          protocol: UDP
+        - containerPort: 1900
+          name: plex4-udp
+          protocol: UDP
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/London"
+        - name: VERSION
+          value: "latest"
+        - name: CHANGE_CONFIG_DIR_OWNERSHIP
+          value: "false"
+        volumeMounts:
+        - name: plex-config
+          mountPath: /config
+        - name: plex-transcode
+          mountPath: /transcode
+        - name: plex-media
+          mountPath: /mnt/media
+      volumes:
+      - name: plex-config
+        nfs:
+          server: 192.168.1.128
+          path: /volume1/configs/plex
+      - name: plex-media
+        nfs:
+          server: 192.168.1.128
+          path: /volume1/media
+      - name: plex-transcode
+        hostPath:
+          path: /srv/plex/transcode

@@ -7,10 +7,7 @@ metadata:
 spec:
   selector:
     app: plex
-  type: NodePort
   ports:
     - name: plex
       port: 32400
       targetPort: 32400
-  externalIPs:
-    - 192.168.1.150

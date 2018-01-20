@@ -16,9 +16,3 @@ spec:
           - backend:
               serviceName: plex
               servicePort: 32400
-    - host: plex.will.local
-      http:
-        paths:
-          - backend:
-              serviceName: plex
-              servicePort: 32400

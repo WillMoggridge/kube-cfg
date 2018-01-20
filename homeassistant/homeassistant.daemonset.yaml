@@ -1,0 +1,39 @@
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: homeassistant
+spec:
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+    spec:
+      hostNetwork: true
+      containers:
+      - name: homeassistant
+        image: homeassistant/home-assistant
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8123
+          name: homeassistant
+        volumeMounts:
+        - name: homeassistant-config
+          mountPath: /config
+        - name: localtime
+          mountPath: /etc/localtime
+        # securityContext:
+        #   privileged: true
+      volumes:
+      - name: homeassistant-config
+        nfs:
+          server: 192.168.1.128
+          path: /volume1/configs/homeassistant/homeassistant
+      - name: localtime
+        hostPath:
+          path: /etc/localtime
+      # - name: dev-zwave
+      #   hostPath:
+      #     path: /dev/usbzwave
+      # - name: dev-insteon
+      #   hostPath:
+      #     path: /dev/usbinsteon

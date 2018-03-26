@@ -11,3 +11,6 @@ spec:
     - name: plex
       port: 32400
       targetPort: 32400
+  type: NodePort
+  externalIPs:
+    - 192.168.1.150

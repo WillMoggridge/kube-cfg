@@ -1,21 +1,19 @@
-kind: DaemonSet
-apiVersion: extensions/v1beta1
+kind: Deployment
+apiVersion: apps/v1beta1
 metadata:
   name: plex
 spec:
-  #updateStrategy:
-    #type: RollingUpdate
+  replicas: 1
   template:
     metadata:
       labels:
         app: plex
     spec:
-      hostNetwork: true
       containers:
       - name: plex
         #image: plexinc/pms-docker
         image: plexinc/pms-docker:plexpass
-        imagePullPolicy: Always
+        #imagePullPolicy: Always
         ports:
         - containerPort: 32400
           name: plex
@@ -44,6 +42,15 @@ spec:
           value: "latest"
         - name: CHANGE_CONFIG_DIR_OWNERSHIP
           value: "false"
+        #- name: ADVERTISE_IP
+        #  value: "http://plex.will.lan/,http://192.168.1.150:32400/"
+        - name: ADVERTISE_IP
+          valueFrom:
+            configMapKeyRef:
+              name: plex-config
+              key: ADVERTISE_IP
+        - name: ALLOWED_NETWORKS
+          value: "192.168.0.0/24,192.168.1.0/24,172.16.0.0/16"
         volumeMounts:
         - name: plex-config
           mountPath: /config

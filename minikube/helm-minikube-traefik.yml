@@ -1,0 +1,12 @@
+loadBalancerIP: "192.168.99.100"
+dashboard:
+  enabled: true
+  domain: "traefik.minikube.local"
+service:
+  nodePorts:
+    http: "80"
+    https: "443"
+deployment:
+  hostPort:
+    httpEnabled: true
+    httpsEnabled: true

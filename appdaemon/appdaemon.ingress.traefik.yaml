@@ -10,7 +10,7 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-    - host: appdaemon.will.lan
+    - host: appdaemon.home
       http:
         paths:
           - backend:

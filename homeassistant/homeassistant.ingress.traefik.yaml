@@ -8,10 +8,19 @@ metadata:
     app: homeassistant
   annotations:
     kubernetes.io/ingress.class: "traefik"
-    # ingress.kubernetes.io/whitelist-source-range: "127.0.0.1/32, 192.168.0.0/17"
+    # ingress.kubernetes.io/whitelist-source-range: "127.0.0.1/32, 192.168.1.1/24"
+    traefik.ingress.kubernetes.io/redirect-permanent: "false"
+    traefik.ingress.kubernetes.io/redirect-regex: ^https?://ha.home/(.*)
+    traefik.ingress.kubernetes.io/redirect-replacement: http://homeassistant.home/$1
 spec:
   rules:
-    - host: homeassistant.will.lan
+    - host: homeassistant.home
+      http:
+        paths:
+          - backend:
+              serviceName: homeassistant
+              servicePort: 80
+    - host: ha.home
       http:
         paths:
           - backend:

@@ -4,6 +4,7 @@ kind: ServiceAccount
 metadata:
   name: traefik-ingress-controller
   namespace: kube-system
+
 ---
 kind: Deployment
 apiVersion: extensions/v1beta1
@@ -26,16 +27,16 @@ spec:
       serviceAccountName: traefik-ingress-controller
       terminationGracePeriodSeconds: 60
       containers:
-      - image: traefik
-        name: traefik-ingress-lb
-        args:
-        - --web
-        - --kubernetes
-        # - --logLevel=DEBUG
-        volumeMounts:
-        - mountPath: "/config"
-          name: "config"
+        - image: traefik
+          name: traefik-ingress-lb
+          args:
+            - --web
+            - --kubernetes
+            # - --logLevel=DEBUG
+          volumeMounts:
+            - mountPath: "/config"
+              name: "config"
       volumes:
-      - name: config
-        configMap:
-          name: traefik-ingress-conf
+        - name: config
+          configMap:
+            name: traefik-ingress-conf

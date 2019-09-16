@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: Service
 metadata:
@@ -8,6 +9,6 @@ spec:
   selector:
     app: appdaemon
   ports:
-    - name: appdaemon
+    - name: dashboard
       port: 80
       targetPort: 5050

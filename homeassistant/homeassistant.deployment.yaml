@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: homeassistant
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: homeassistant
+    spec:
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: homeassistant
+          image: homeassistant/home-assistant
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8123
+              name: homeassistant
+          volumeMounts:
+            - name: homeassistant-config
+              mountPath: /config
+            - name: localtime
+              mountPath: /etc/localtime
+      volumes:
+        - name: homeassistant-config
+          nfs:
+            server: 192.168.1.128
+            path: /volume1/configs/homeassistant/homeassistant
+        - name: localtime
+          hostPath:
+            path: /etc/localtime

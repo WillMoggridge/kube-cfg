@@ -1,3 +1,4 @@
+---
 kind: Service
 apiVersion: v1
 metadata:
@@ -19,4 +20,4 @@ spec:
   type: NodePort
   externalIPs:
     - 192.168.1.150
-  externalTrafficPolicy: "Local"
+  externalTrafficPolicy: Local

@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: appdaemon
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: appdaemon
+    spec:
+      containers:
+        - name: appdaemon
+          image: acockburn/appdaemon
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5050
+              name: dashboard
+          env:
+            - name: HA_URL
+              value: "http://homeassistant"
+            # - name: HA_KEY
+            #   value: ""
+            - name: DASH_URL
+              value: "http://0.0.0.0:5050"
+          volumeMounts:
+            - name: appdaemon-config
+              mountPath: /conf
+            - name: localtime
+              mountPath: /etc/localtime
+      volumes:
+        - name: appdaemon-config
+          nfs:
+            server: 192.168.1.128
+            path: /volume1/configs/homeassistant/appdaemon
+        - name: localtime
+          hostPath:
+            path: /etc/localtime

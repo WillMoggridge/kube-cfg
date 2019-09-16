@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38,17 +39,19 @@ data:
     # Kubernetes server endpoint
     #
     # When deployed as a replication controller in Kubernetes, Traefik will use
-    # the environment variables KUBERNETES_SERVICE_HOST and KUBERNETES_SERVICE_PORT
-    # to construct the endpoint.
-    # Secure token will be found in /var/run/secrets/kubernetes.io/serviceaccount/token
+    # the environment variables KUBERNETES_SERVICE_HOST and
+    # KUBERNETES_SERVICE_PORT to construct the endpoint.
+    # Secure token will be found in
+    # /var/run/secrets/kubernetes.io/serviceaccount/token
     # and SSL CA cert in /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
     #
     # The endpoint may be given to override the environment variable values.
     #
-    # When the environment variables are not found, Traefik will try to connect to
-    # the Kubernetes API server with an external-cluster client. In this case, the
-    # endpoint is required. Specifically, it may be set to the URL used by
-    # `kubectl proxy` to connect to a Kubernetes cluster from localhost.
+    # When the environment variables are not found, Traefik will try to connect
+    # to the Kubernetes API server with an external-cluster client. In this
+    # case, the endpoint is required. Specifically, it may be set to the URL
+    # used by `kubectl proxy` to connect to a Kubernetes cluster from
+    # localhost.
     #
     # Optional for in-cluster configuration, required otherwise
     # Default: empty

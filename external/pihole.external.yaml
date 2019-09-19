@@ -1,0 +1,40 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: pihole
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: pihole
+subsets:
+  - addresses:
+      - ip: 192.168.1.111
+    ports:
+      - port: 80
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: pihole
+  labels:
+    app: pihole
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host: pihole.home
+      http:
+        paths:
+          - backend:
+              serviceName: pihole
+              servicePort: 80

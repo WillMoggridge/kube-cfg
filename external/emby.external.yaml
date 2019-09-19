@@ -1,0 +1,40 @@
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: emby
+spec:
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8096
+
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: emby
+subsets:
+  - addresses:
+      - ip: 192.168.1.145
+    ports:
+      - port: 8096
+
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  namespace: default
+  name: emby
+  labels:
+    app: emby
+  annotations:
+    kubernetes.io/ingress.class: "traefik"
+spec:
+  rules:
+    - host: emby.home
+      http:
+        paths:
+          - backend:
+              serviceName: emby
+              servicePort: 80

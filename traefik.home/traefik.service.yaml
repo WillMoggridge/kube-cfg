@@ -15,7 +15,8 @@ spec:
       port: 443
       name: https
     - protocol: TCP
-      port: 8080
+      port: 8000
+      targetPort: admin
       name: admin
   type: NodePort
   externalIPs:

@@ -9,7 +9,7 @@ spec:
     k8s-app: traefik-ingress-lb
   ports:
     - port: 80
-      targetPort: 8080
+      targetPort: admin
 
 ---
 apiVersion: extensions/v1beta1
@@ -21,7 +21,7 @@ metadata:
     kubernetes.io/ingress.class: traefik
 spec:
   rules:
-    - host: traefik-ui.home
+    - host: traefik.home
       http:
         paths:
           - backend:

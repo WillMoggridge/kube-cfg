@@ -10,13 +10,13 @@ metadata:
     kubernetes.io/ingress.class: "traefik"
 spec:
   rules:
-    - host: mosquitto.will.lan
+    - host: mosquitto.home
       http:
         paths:
           - backend:
               serviceName: mosquitto
               servicePort: 80
-    - host: mqtt.will.lan
+    - host: mqtt.home
       http:
         paths:
           - backend:
